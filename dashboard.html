@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>H&Q Soluciones | Administración</title>
+
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- =====================================================
+         BARRA LATERAL
+    ====================================================== -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="avatar">HQ</div>
+
+            <div>
+                <strong>H&amp;Q SOLUCIONES</strong>
+                <span>Panel administrativo</span>
+            </div>
+        </div>
+
+        <!-- NAVEGACIÓN -->
+        <nav class="admin-navigation">
+
+            <button
+                id="productsTab"
+                class="admin-tab active"
+            >
+                <span class="tab-icon">📦</span> Productos
+            </button>
+
+            <button
+                id="servicesTab"
+                class="admin-tab"
+            >
+                <span class="tab-icon">🔧</span> Servicios
+            </button>
+
+            <button id="brandsTab" class="admin-tab">
+    <span class="tab-icon">🏷️</span> Marcas
+</button>
+
+            <button id="reservationsTab" class="admin-tab admin-link">
+    <span class="tab-icon">📋</span> Reservas
+</button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <div class="sidebar-user">
+                <div class="avatar small">AD</div>
+
+                <div>
+                    <strong>Administrador</strong>
+                    <span>Admin</span>
+                </div>
+            </div>
+
+            <button id="logoutButton" title="Cerrar sesión">
+                Cerrar sesión
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         CONTENIDO
+    ====================================================== -->
+    <div class="content">
+
+        <!-- BARRA SUPERIOR -->
+        <header class="admin-header">
+
+            <h1 class="topbar-title">Dashboard</h1>
+
+            <span class="date-chip" id="currentDate"></span>
+
+        </header>
+
+
+        <main class="admin-main">
+
+            <!-- =====================================================
+                 SECCIÓN PRODUCTOS
+            ====================================================== -->
+
+            <section id="productsSection">
+
+                <div class="page-title">
+
+                    <div>
+                        <h2 class="page-heading">Productos</h2>
+
+                        <p class="welcome">
+                            Administra el catálogo de productos de H&amp;Q Soluciones.
+                        </p>
+                    </div>
+
+                    <button
+                        id="newProductButton"
+                        class="add-button"
+                    >
+                        + Nuevo producto
+                    </button>
+
+                </div>
+
+
+                <!-- ESTADÍSTICAS PRODUCTOS -->
+
+                <section class="admin-cards">
+
+                    <div class="admin-card">
+                        <span>📦</span>
+
+                        <div>
+                            <small>Productos</small>
+                            <strong id="productCount">0</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="admin-card">
+                        <span>🟢</span>
+
+                        <div>
+                            <small>Activos</small>
+                            <strong id="activeCount">0</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="admin-card">
+                        <span>📉</span>
+
+                        <div>
+                            <small>Poco stock</small>
+                            <strong id="lowStockCount">0</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="admin-card">
+                        <span>🔥</span>
+
+                        <div>
+                            <small>Promociones</small>
+                            <strong id="promotionCount">0</strong>
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <!-- RESUMEN VISUAL -->
+
+                <section class="overview">
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+                            <h2>Reservas de servicio en el tiempo</h2>
+                            <span class="panel-meta" id="chartMeta"></span>
+                        </div>
+
+                        <div id="reservationsChart" class="chart-box"></div>
+
+                    </div>
+
+                    <div class="overview-grid">
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+                                <h2>Productos con más stock</h2>
+                            </div>
+
+                            <div id="topProductsList"></div>
+
+                        </div>
+
+                        <div class="panel">
+
+                            <div class="panel-header">
+                                <h2>Reservas recientes</h2>
+                            </div>
+
+                            <div id="recentReservationsList"></div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- TABLA PRODUCTOS -->
+
+                <section class="products-section">
+
+                    <div class="table-header">
+
+                        <h2>Catálogo de productos</h2>
+
+                        <input
+                            type="search"
+                            id="searchProducts"
+                            placeholder="Buscar producto..."
+                        >
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Promoción</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="productsTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+            </section>
+
+
+            <!-- =========================================================
+                 RESERVAS DE SERVICIO
+            ========================================================= -->
+
+            <section class="admin-section" id="reservationsSection" style="display:none;">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Reservas de servicio</h2>
+                        <p>
+                            Consulta las solicitudes de servicio realizadas
+                            por los clientes.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- ESTADÍSTICAS DE RESERVAS -->
+
+                <div class="reservation-stats">
+
+                    <div class="reservation-stat-card total">
+                        <div class="reservation-stat-icon">📋</div>
+                        <div>
+                            <p>Total de reservas</p>
+                            <h3 id="reservationTotal">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="reservation-stat-card pending">
+                        <div class="reservation-stat-icon">⏳</div>
+                        <div>
+                            <p>Pendientes</p>
+                            <h3 id="reservationPending">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="reservation-stat-card progress">
+                        <div class="reservation-stat-icon">🔧</div>
+                        <div>
+                            <p>En proceso</p>
+                            <h3 id="reservationInProgress">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="reservation-stat-card completed">
+                        <div class="reservation-stat-icon">✓</div>
+                        <div>
+                            <p>Completadas</p>
+                            <h3 id="reservationCompleted">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="reservation-stat-card cancelled">
+                        <div class="reservation-stat-icon">✕</div>
+                        <div>
+                            <p>Canceladas</p>
+                            <h3 id="reservationCancelled">0</h3>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- BUSCADOR Y FILTROS DE RESERVAS -->
+
+                <div class="reservations-toolbar">
+
+                    <input
+                        type="search"
+                        id="reservationSearch"
+                        placeholder="Buscar por código, cliente o teléfono..."
+                        autocomplete="off"
+                    >
+
+                    <select id="reservationStatusFilter">
+                        <option value="">Todos los estados</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="en_proceso">En proceso</option>
+                        <option value="completado">Completado</option>
+                    </select>
+
+                    <button type="button" id="resetReservationFilters">
+                        Restablecer
+                    </button>
+
+                </div>
+
+                <div class="reservations-table-wrapper">
+
+                    <table class="reservations-table">
+
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Cliente</th>
+                                <th>Teléfono</th>
+                                <th>Equipo</th>
+                                <th>Servicio</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="reservationsTableBody">
+
+                            <tr>
+                                <td colspan="9" class="reservations-loading">
+                                    Cargando reservas...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================================
+                 SECCIÓN SERVICIOS
+            ====================================================== -->
+
+            <section
+                id="servicesSection"
+                style="display:none;"
+            >
+
+                <div class="page-title">
+
+                    <div>
+                        <h2 class="page-heading">Servicios técnicos</h2>
+
+                        <p class="welcome">
+                            Administra los servicios técnicos de H&amp;Q Soluciones.
+                        </p>
+                    </div>
+
+                    <button
+                        id="newServiceButton"
+                        class="add-button"
+                    >
+                        + Nuevo servicio
+                    </button>
+
+                </div>
+
+
+                <!-- ESTADÍSTICAS SERVICIOS -->
+
+                <section class="admin-cards">
+
+                    <div class="admin-card">
+
+                        <span>🔧</span>
+
+                        <div>
+                            <small>Servicios</small>
+                            <strong id="serviceCount">0</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="admin-card">
+
+                        <span>🟢</span>
+
+                        <div>
+                            <small>Activos</small>
+                            <strong id="activeServiceCount">0</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="admin-card">
+
+                        <span>🔥</span>
+
+                        <div>
+                            <small>Promociones</small>
+                            <strong id="servicePromotionCount">0</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="admin-card">
+
+                        <span>💰</span>
+
+                        <div>
+                            <small>Precio promedio</small>
+                            <strong id="serviceAveragePrice">
+                                S/ 0.00
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- TABLA SERVICIOS -->
+
+                <section class="products-section">
+
+                    <div class="table-header">
+
+                        <h2>Catálogo de servicios</h2>
+
+                        <input
+                            type="search"
+                            id="searchServices"
+                            placeholder="Buscar servicio..."
+                        >
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Servicio</th>
+                                    <th>Precio</th>
+                                    <th>Promoción</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="servicesTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+            </section>
+
+<!-- =====================================================
+     SECCIÓN MARCAS
+====================================================== -->
+<section id="brandsSection" style="display:none;" class="admin-section">
+    <div class="page-title">
+        <div>
+            <h2 class="page-heading">Marcas</h2>
+            <p class="welcome">Administra el catálogo de marcas.</p>
+        </div>
+        <button id="newBrandButton" class="add-button">+ Nueva marca</button>
+    </div>
+
+    <section class="products-section">
+        <div class="table-header">
+            <h2>Directorio de marcas</h2>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Logo / Nombre</th>
+                        <th>Slug</th>
+                        <th>Orden</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="brandsTable"></tbody>
+            </table>
+        </div>
+    </section>
+</section>
+
+
+        </main>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL PRODUCTO
+========================================================= -->
+
+<div
+    id="productModal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Nuevo producto
+            </h2>
+
+            <button id="closeModal">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="productForm">
+
+            <input
+                type="hidden"
+                id="productId"
+            >
+
+
+            <div class="form-group">
+
+                <label>Nombre del producto</label>
+
+                <input
+                    type="text"
+                    id="productName"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Descripción</label>
+
+                <textarea
+                    id="productDescription"
+                    rows="3"
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Precio</label>
+
+                    <input
+                        type="number"
+                        id="productPrice"
+                        step="0.01"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Stock</label>
+
+                    <input
+                        type="number"
+                        id="productStock"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+<!-- Categoría -->
+<div class="form-group">
+    <label>Categoría</label>
+    <select id="productCategory" required>
+        <option value="">Seleccionar categoría</option>
+    </select>
+</div>
+
+<!-- Subcategoría -->
+<div class="form-group">
+    <label>Subcategoría</label>
+    <select id="productSubcategory">
+        <option value="">Seleccionar subcategoría</option>
+    </select>
+</div>
+
+<!-- Marca -->
+<div class="form-group">
+    <label>Marca</label>
+    <select id="productBrand">
+        <option value="">Seleccionar marca</option>
+    </select>
+</div>
+
+<!-- Campo oculto para mantener la URL existente al editar -->
+<input type="hidden" id="productExistingImage">
+
+<div class="form-group">
+    <label>Imagen del producto</label>
+    <input type="file" id="productImageFile" accept="image/*">
+    <div id="productImagePreview" style="margin-top: 10px;"></div>
+</div>
+
+
+            <div class="promotion-box">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="productPromotion"
+                    >
+
+                    Activar promoción
+
+                </label>
+
+
+                <div class="form-group">
+
+                    <label>Precio promocional</label>
+
+                    <input
+                        type="number"
+                        id="promotionPrice"
+                        step="0.01"
+                        min="0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="productActive"
+                        checked
+                    >
+
+                    Producto visible en la tienda
+
+                </label>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelButton"
+                    class="cancel-button"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="save-button"
+                >
+                    Guardar producto
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL SERVICIO
+========================================================= -->
+
+<div
+    id="serviceModal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2 id="serviceModalTitle">
+                Nuevo servicio
+            </h2>
+
+            <button id="closeServiceModal">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="serviceForm">
+
+            <input
+                type="hidden"
+                id="serviceId"
+            >
+
+
+            <div class="form-group">
+
+                <label>
+                    Nombre del servicio
+                </label>
+
+                <input
+                    type="text"
+                    id="serviceName"
+                    placeholder="Ej: Mantenimiento de computadoras"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Descripción
+                </label>
+
+                <textarea
+                    id="serviceDescription"
+                    rows="4"
+                    placeholder="Describe el servicio..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Precio
+                </label>
+
+                <input
+                    type="number"
+                    id="servicePrice"
+                    step="0.01"
+                    min="0"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Imagen / icono
+                </label>
+
+                <input
+                    type="text"
+                    id="serviceImage"
+                    placeholder="🔧"
+                >
+
+            </div>
+
+
+            <div class="promotion-box">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="servicePromotion"
+                    >
+
+                    Activar promoción
+
+                </label>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Precio promocional
+                    </label>
+
+                    <input
+                        type="number"
+                        id="servicePromotionPrice"
+                        step="0.01"
+                        min="0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="serviceActive"
+                        checked
+                    >
+
+                    Servicio visible en la tienda
+
+                </label>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelServiceButton"
+                    class="cancel-button"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="save-button"
+                >
+                    Guardar servicio
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div id="reservationDetailsModal" class="reservation-details-modal" hidden>
+    <div class="reservation-details-content">
+        <button
+            type="button"
+            id="closeReservationDetails"
+            class="reservation-details-close"
+            aria-label="Cerrar">
+            &times;
+        </button>
+
+        <h2>Detalles de la reserva</h2>
+        <div id="reservationDetailsBody"></div>
+    </div>
+</div>
+
+<!-- =========================================================
+     MODAL MARCA
+========================================================= -->
+<div id="brandModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="brandModalTitle">Nueva marca</h2>
+            <button type="button" id="closeBrandModal">×</button>
+        </div>
+        <form id="brandForm">
+            <input type="hidden" id="brandId">
+            <input type="hidden" id="brandExistingLogo">
+
+            <div class="form-group">
+                <label>Nombre de la marca</label>
+                <input type="text" id="brandName" placeholder="Ej. Logitech" required>
+            </div>
+
+            <div class="form-group">
+                <label>Logo / Imagen de la marca</label>
+                <input type="file" id="brandLogoFile" accept="image/*">
+                <div id="brandLogoPreview" style="margin-top: 10px;"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Descripción (Opcional)</label>
+                <textarea id="brandDescription" rows="2" placeholder="Descripción breve de la marca"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Orden</label>
+                    <input type="number" id="brandOrder" value="1" required>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; margin-top: 15px;">
+                    <label>
+                        <input type="checkbox" id="brandActive" checked> Marca activa
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" id="cancelBrandButton" class="cancel-button">Cancelar</button>
+                <button type="submit" class="save-button" id="saveBrandButton">Guardar marca</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var el = document.getElementById('currentDate');
+        if (el) {
+            el.textContent = new Date().toLocaleDateString('es-PE', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+        }
+    })();
+</script>
+
+<script
+    type="module"
+    src="js/dashboard.js"
+></script>
+
+<script
+    type="module"
+    src="js/dashboard-widgets.js"
+></script>
+<script type="module" src="js/brands.js"></script>
+
+</body>
+
+</html>
